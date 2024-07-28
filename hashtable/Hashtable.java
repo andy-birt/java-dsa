@@ -45,7 +45,7 @@ class HashTable<K,V> {
     public void put(K key, Node<K,V> node) {
         // If node array is not big enough to fit new value then increase the size
         // Place the node in the array with the key
-        if (isNodesFull()) {
+        if (isTimeToResize()) {
             // System.out.println("nodes full when adding: "+key);
             Node<K,V>[] oldNodes = nodes;
             this.nodes = (Node<K,V>[]) new Node[nodes.length * 2];
@@ -77,7 +77,7 @@ class HashTable<K,V> {
 
     private int getIndex(K key) {
         // Generate hashcode to find our node array index
-        System.out.println(key);
+        // Need a way to deal with collision
         return key.hashCode() % nodes.length;
     }
 
@@ -85,7 +85,7 @@ class HashTable<K,V> {
         return (double)size() / nodes.length;
     }
 
-    private boolean isNodesFull() {
+    private boolean isTimeToResize() {
         return getLoadFactor() > loadFactor;
     }
     
